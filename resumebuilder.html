@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Resume Builder</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <style>
+
+    h1 {
+      margin-left: 6%;
+      margin-bottom: 6%;
+      font-family: "Roboto Condensed";
+    }
+      #resumeInput {
+        brder: 1px solid black;
+      }
+      #resumeOutput {
+        brder: 1px solid black;
+      }
+      input {
+        display: block;
+        margin-left: 12%;
+        margin-bottom: 5%;
+        border: none;
+        border-bottom: 1px solid black;
+        width: 60%;
+      }
+      label {
+        margin-left: 6%;
+        font-size: 80%;
+      }
+      label, input {
+        font-family: "Roboto Condensed";
+      }
+      input[placeholder]{
+        font-size: 70%;
+        font-style: italic;
+        opacity: 0.5;
+        background-color: white;
+      }
+      form {
+        margin-top: 10%;
+        padding-top: 3%;
+        background-color: white;
+        padding-bottom: 2%;
+        brder: 1px solid red;
+        box-shadow: 0px 0px 20px black;
+      }
+      #button {
+        width: 15%;
+        background-color: darkturquoise;
+        color: white;
+        border: none;
+        border-radius: 10%;
+        margin-bottom: 2%;
+        margin-top: 5%;
+        padding: 5px;
+        margin-left: 40%;
+      }
+      textarea {
+        resize: none;
+        display: block;
+        margin-left: 12%;
+        width: 60%;
+        background-color: white;
+        font-size: 80%;
+        border: none;
+        border: 1px solid black;
+      }
+      #educ {
+        margin-top: 5%;
+      }
+      #picture {
+        display: inline-block;
+        margin-left: 5%;
+        width: 42%;
+        max-width: 42%;
+        padding-top: 5%;
+        border: 1px solid black;
+      }
+      #identity {
+        display: inline-block;
+        brder: 1px solid pink;
+        width: 50%;
+        margin-top: 6%;
+      }
+      #yourName, #address {
+        text-align: center;
+      }
+      #product {
+        margin-left: 0.6%;
+        margin-right: 0.6%;
+        margin-top: 10%;
+        background-color: white;
+        padding-bottom: 2%;
+        brder: 1px solid red;
+        box-shadow: 0px 0px 20px black;
+      }
+      #head4{
+        font-family: "Roboto Condensed";
+        padding-top: 10%;
+      }
+      #eduP {
+        font-family: "Roboto Condensed";
+        margin-right: 4%;
+      }
+      #eduP, #head4 {
+        margin-left: 5%;
+      }
+
+      #head5{
+        font-family: "Roboto Condensed";
+        padding-top: 10%;
+      }
+      #workExp {
+        font-family: "Roboto Condensed";
+        margin-right: 4%;
+      }
+      #workExp, #head5 {
+        margin-left: 5%;
+      }
+      #product {
+        background-color: white;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-6" id="resumeInput">
+          <form>
+            <h1>Dream Resume</h1>
+            <label>Name:</label><input id="nameInput" type="text" placeholder="Enter name here..">
+            <label>Address:</label><input id="addressInput" type="text" placeholder="Enter your address here..">
+            <label>BG Color:</label><input id="bgColorInput" type="text" placeholder="Enter a color..">
+            <label>Image Link:</label><input id="imageInput" type="text" placeholder="Put up a nice picture..">
+            <label id="educ">Education:</label><textarea type="text" id="educationInput" maxlength="440"></textarea>
+            <label>Work Exp:</label><textarea type="text" id="workExpInput" maxlength="440"></textarea>
+            <input type="submit" value="Submit" id="button">
+          </form>
+        </div>
+
+        <div class="col-sm-6" id="resumeOutput">
+          <div id="product">
+            <img id="picture" src="http://interactive.nydailynews.com/2016/05/simpsons-quiz/img/simp1.jpg">
+            <div id="identity">
+              <h2 id="yourName">[Your Name!]</h2>
+              <p id="address">[Your Address will go here!]</p>
+            </div>
+
+            <h4 id="head4">Education:</h4>
+            <p id=eduP>[Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+              voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+              anim id est laborum.]<p>
+            <h4 id="head5">Work Experience:</h4>
+            <p id=workExp>[Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
+              voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+              anim id est laborum.]<p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+
+      $(document).ready(function(){
+
+        $('#button').click(function(event){
+          let nameVal = $('#nameInput[type=text]').val();
+          let addressVal = $('#addressInput[type=text]').val();
+          let bgColorVal = $('#bgColorInput[type=text]').val();
+          let imageVal = $('#imageInput[type=text]').val();
+          let educationVal = $('#educationInput[type=text]').val();
+          let workExpVal = $('#workExpInput[type=text]').val();
+            event.preventDefault();
+
+
+            $('#yourName').text(nameVal);
+            $('#address').text(addressVal);
+            $('#eduP').text(educationVal);
+            $('#workExp').text(workExpVal);
+            $('#picture').attr('src', imageVal);
+            $('#product').css({
+                'background-color': bgColorVal
+            });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Rock-Paper-Scissors</title>
+  <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed|Cinzel|Open+Sans+Condensed:300|Montserrat|Abel" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<style>
+  #header {
+    display: flex;
+    font-family: "Cinzel";
+    color: coral;
+    justify-content: center;
+  }
+  #header h1 {
+    font-weight: lighter;
+  }
+  #container {
+    display: flex;
+    justify-content: center;
+    padding: 4%;
+  }
+  #rules {
+    font-family: "Abel";
+    font-size: 1.1em;
+    width: 40%;
+    margin: auto;
+  }
+  #weaponsChoices {
+    display: flex;
+    justify-content: center;
+  }
+  #weapon1, #weapon2 {
+    padding: 5%;
+    font-family: "Cinzel";
+  }
+  #results {
+    text-align: center;
+    font-family: "Cinzel";
+  }
+  #gameResults {
+    display: flex;
+    justify-content: center;
+    font-size: 60px;
+  }
+  #counter, #counter2 {
+    margin: 0;
+  }
+  #conclusion {
+    text-align: center;
+  }
+  #btn {
+    background-color: darkturquoise;
+    color: white;
+    border: none;
+    margin-left: 10px;
+  }
+  input {
+    border: none;
+    border-bottom: 1px solid black;
+    background-color: white;
+  }
+  label {
+    font-family: "Roboto Condensed";
+    padding-right: 10px;
+  }
+  #conclusion {
+    opacity: 0.2;
+    font-family: "Cinzel";
+  }
+</style>
+<body>
+  <div id="header">
+    <h1>Rock-Paper-Scissors</h1>
+  </div>
+
+  <div id="rules">
+    <p>When you enter your weapon of choice inside the <i>input</i> field and click <i>submit</i>, the program will randomly generate the
+    'computers' weapon of choice.</p>
+
+    <p>Remember: Rock beats Scissors, Paper beats Rock, and Scissors beats Paper. The winner of a round gets a point.
+      The first to attain 5 points is declared the winner.</p>
+  </div>
+
+  <div id="container">
+    <label>Choose your weapon: </label>
+    <input type="text">
+    <button id="btn">Submit</button>
+  </div>
+
+  <div id="weaponsChoices">
+    <div id=weapon1>
+      <p id="weaponone">-Weapon-</p>
+    </div>
+
+    <div id="weapon2">
+      <p id="weapontwo">-Weapon-</p>
+    </div>
+  </div>
+
+  <div id="resultsDiv">
+    <p id="results">|Round Results|</p>
+  </div>
+
+  <div id="gameResults">
+    <div id=yourPoints>
+      <p id="counter">[your points]</p>
+    </div>
+
+    <div id="theirPoints">
+      <p id="counter2">[computers points]</p>
+    </div>
+  </div>
+
+  <div id="winnerDiv">
+    <p id="conclusion">|Game Results|</p>
+  </div>
+
+<script>
+// Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAyLVZXVNO7E-_BPPksQWPC-ukoxF7qezA",
+    authDomain: "rockpaperscissors-17c4a.firebaseapp.com",
+    databaseURL: "https://rockpaperscissors-17c4a.firebaseio.com",
+    projectId: "rockpaperscissors-17c4a",
+    storageBucket: "",
+    messagingSenderId: "726582807778"
+  };
+  firebase.initializeApp(config);
+
+  $(document).ready(function(){
+    const gameRef = firebase.database().ref('/');
+    gameRef.on('child_added', function(data){
+      const gameId = data.key;
+      const gameObj = data.val();
+
+    });
+    let playerPoints = 0;
+    let computerPoints = 0;
+    $('#counter').text(`${playerPoints}`);
+    $('#counter2').text(`${computerPoints}`);
+
+
+    $('#btn').click(function(){
+      let won = "You Win!";
+      let lost = "You Lose";
+
+      let strLowerCase = $('input[type=text]').val().toLowerCase();
+      let firstLetterUpper = strLowerCase[0].toUpperCase();
+      let weaponValue = strLowerCase.replace(strLowerCase[0], firstLetterUpper);
+
+
+        $('#weaponone').text(weaponValue);
+        $('input[type=text]').val('');
+        $('input[type=text]').focus();
+
+
+        let computerSelect = ["Rock", "Paper", "Scissors"];
+        let randNum = Math.round(Math.random() * 2);
+        let computerWeapon = computerSelect[randNum];
+        $('#weapontwo').text(computerWeapon);
+
+              if(
+                (weaponValue === "Rock" && computerWeapon === "Scissors") ||
+                (weaponValue === "Paper" && computerWeapon === "Rock") ||
+                (weaponValue === "Scissors" && computerWeapon === "Paper")){
+                playerPoints += 1;
+                $('#counter').text(`${playerPoints}`);
+                $('#counter2').text(`${computerPoints}`);
+                $('#results').text("Round won!");
+              }
+              else if (
+                (weaponValue === "Rock" && computerWeapon === "Paper") ||
+                (weaponValue === "Paper" && computerWeapon === "Scissors") ||
+                (weaponValue === "Scissors" && computerWeapon === "Rock")){
+                computerPoints += 1;
+                $('#counter').text(`${playerPoints}`);
+                $('#counter2').text(`${computerPoints}`);
+                $('#results').text("Round lost!");
+              }
+              else {
+                $('#results').text("Tie!");
+              }
+
+
+
+          if(playerPoints === 5){
+            $('#conclusion').text(won).css({
+              'color': 'green',
+              'font-size': '2.5em',
+              'opacity': '1'
+            });;
+            gameRef.push(won);
+            let playerPoints = 0;
+            let computerPoints = 0;
+            $('#counter').text(`${playerPoints}`);
+            $('#counter2').text(`${computerPoints}`);
+          }
+          else if(computerPoints === 5){
+            $('#conclusion').text(lost).css({
+              'color': 'red',
+              'font-size': '2.5em',
+              'opacity': '1'
+            });
+            gameRef.push(lost);
+            let playerPoints = 0;
+            let computerPoints = 0;
+            $('#counter').text(`${playerPoints}`);
+            $('#counter2').text(`${computerPoints}`);
+          }
+
+    });
+  });
+
+  /*function capLetter (str) {
+  let strLowerCase = str.toLowerCase();
+  let firstLetterUpper = strLowerCase[0].toUpperCase();
+  let newWord = strLowerCase.replace(strLowerCase[0], firstLetterUpper);
+  return newWord;
+}
+capLetter("WHOOOOOOO");
+*/
+
+</script>
+</body>
+</html>
