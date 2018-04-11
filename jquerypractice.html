@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Jquery Practice</title>
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <style>
+    #textBox {
+      position: absolute;
+      left: 35%;
+      top: 30%;
+      width: 500px;
+      background-color: white;
+      border: none;
+      border-bottom: 1px solid black;
+    }
+    #randomNames {
+      text-align: center;
+      top: 50%;
+      font-family: "Roboto Condensed";
+      font-size: 30px;
+    }
+  </style>
+  </head>
+  <body>
+    <input id="textBox" type="text"></input>
+    <div id='button'></div>
+    <p id="randomNames"></p>
+
+    <script>
+    $(document).ready(function(){
+      $('#button').css({
+        'font-family':'Roboto Condensed',
+        'width': '90px',
+        'height': '30px',
+        'font-size':'16px',
+        'background-color': 'indianred',
+        'margin': 'auto',
+        'margin-top': '20%',
+        'text-align':'center',
+        'border-radius': '10%',
+        'padding-top':'12px',
+        'box-shadow': '0px 0px 15px indianred',
+        'color': 'white'
+      });
+      $('#button').mouseenter(function(){
+        $(this).css({
+          'background-color': 'pink',
+          'box-shadow': '0px 0px 15px pink'
+        });
+      });
+      $('#button').mouseleave(function(){
+        $(this).css({
+          'background-color': 'indianred',
+          'box-shadow': '0px 0px 15px indianred'
+        });
+    });
+    $('#button').click(function(){
+      $(this).css({
+        'background-color': 'dodgerblue',
+        'box-shadow': '0px 0px 15px dodgerblue'
+      });
+    });
+    $('#button').html("Click me!");
+
+    $('#button').click(function(){
+        let input = $('input[type=text]').val();
+        let arr = input.split(" ");
+        let randomize = Math.round(Math.random() * arr.length);
+        $('#randomNames').html("This winner is " + arr[randomize].replace(/,/g, '') + "!");
+    });
+  });
+    </script>
+
+  </body>
+</html>
