@@ -1,3 +1,9 @@
+/*Write a function, closestNeighbors, that takes a integer, n, and three other integers,
+a, b and c. Find the largest integer below n that is divisible by a, b and c and find
+the smallest integer above n that is also divisible by a, b, and c then return both
+results in array.*/
+
+
 function closestNeighbors(n, a, b, c){
   let results = [];
   for(let i = n; i < Infinity; i += 1){
